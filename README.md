@@ -1,97 +1,294 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Produtivo — Estrutura do App
 
-# Getting Started
+## Equipe
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+- **Maurício** — Frontend Developer
+- **Felipe Romero** — Backend Developer
 
-## Step 1: Start Metro
+## 1. Proposta do Produto
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+Aplicativo de produtividade focado em:
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+* Organização prática do dia
+* Clareza sobre uso do tempo
+* Equilíbrio entre áreas da vida
+  Diferencial:
+  → Não apenas gerencia tarefas, mas mostra **como o tempo está sendo distribuído**.
 
-```sh
-# Using npm
-npm start
+---
 
-# OR using Yarn
-yarn start
-```
+## 2. Categorias de Vida (base do sistema)
 
-## Step 2: Build and run your app
+* Trabalho
+* Estudos
+* Saúde
+* Lazer
+* Descanso
+  Todas as ações do app obrigatoriamente pertencem a uma dessas categorias.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+---
 
-### Android
+## 3. Estrutura do Sistema (MVP)
 
-```sh
-# Using npm
-npm run android
+### Entidades principais
 
-# OR using Yarn
-yarn android
-```
+#### 1. Tarefas
 
-### iOS
+* Execução diária com suporte a planejamento simples
+* Pode ser:
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+  * Normal
+  * Recorrente (ex: todo dia, semanal)
+* Possui **data associada (opcional)** para permitir planejamento futuro sem complexidade de calendário
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+Campos essenciais:
 
-```sh
-bundle install
-```
+* título
+* categoria
+* concluída (boolean)
+* recorrente (boolean)
+* frequência (opcional)
+* date (string - formato YYYY-MM-DD)
 
-Then, and every time you update your native dependencies, run:
+Regras:
 
-```sh
-bundle exec pod install
-```
+* Se não tiver data → assume como **hoje**
+* Home sempre mostra tarefas do dia atual
+* Usuário pode criar tarefas para:
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+  * Hoje
+  * Amanhã
+  * Data específica
 
-```sh
-# Using npm
-npm run ios
+---
 
-# OR using Yarn
-yarn ios
-```
+#### 2. Metas
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+* Direção de médio/longo prazo
+  Campos essenciais:
+* título
+* categoria
+* prazo
+* progresso (%)
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+---
 
-## Step 3: Modify your app
+## 4. Navegação (simples e direta)
 
-Now that you have successfully run the app, let's make changes!
+**Bottom Tabs (4 abas):**
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+1. Home
+2. Tarefas
+3. Metas
+4. Perfil
+   Regra:
+   → Tudo acessível em no máximo 2 toques
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+---
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## 5. Estrutura das Telas
 
-## Congratulations! :tada:
+### 5.1 Home (principal)
 
-You've successfully run and modified your React Native App. :partying_face:
+Função: visão geral da vida + execução rápida
+Componentes:
 
-### Now what?
+* Score geral (0–100)
+* Distribuição por categoria (%)
+* Tarefas do dia (baseadas na data atual)
+* Progresso semanal
+* Ações rápidas:
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+  * Nova tarefa
+  * Nova meta
 
-# Troubleshooting
+UX:
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+* Usuário deve conseguir concluir tarefas direto aqui
+* Foco em velocidade e simplicidade
 
-# Learn More
+---
 
-To learn more about React Native, take a look at the following resources:
+### 5.2 Tarefas
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Função: execução e organização
+
+* Lista por categoria
+* Checkbox (concluir)
+* Prioridade (simples)
+* Criar tarefa
+* Opção: marcar como recorrente
+* Seleção de data (simples):
+
+  * Hoje
+  * Amanhã
+  * Escolher data
+
+---
+
+### 5.3 Metas
+
+Função: direção
+
+* Lista de metas
+* Progresso visual (%)
+* Prazo
+
+---
+
+### 5.4 Perfil
+
+Função: controle
+
+* Dados do usuário
+* Configurações básicas
+
+---
+
+## 6. Lógica do Produto
+
+Sistema baseado em pontos:
+
+* Cada tarefa concluída gera pontos
+* Pontos são somados por categoria
+  Saída:
+* Distribuição percentual por área
+* Score geral de equilíbrio
+
+Regra de cálculo:
+
+* Baseado apenas nas tarefas concluídas **no período selecionado (ex: dia atual)**
+
+Exemplo:
+
+* Trabalho: 40%
+* Estudos: 25%
+* Saúde: 15%
+* Lazer: 10%
+* Descanso: 10%
+
+---
+
+## 7. Fluxos Essenciais
+
+### Onboarding (3 telas)
+
+* Organizar rotina
+* Definir metas
+* Visualizar equilíbrio
+
+CTA: Começar
+
+---
+
+## 8. Stack Tecnológica
+
+### Frontend
+
+* React Native
+
+### Backend
+
+* Firebase:
+
+  * Authentication
+  * Firestore
+  * (Futuro) Cloud Functions
+
+---
+
+## 9. Evolução (pós-MVP)
+
+Adicionar apenas após validação de uso:
+
+* Visualização por dias (timeline)
+* Calendário visual (se houver demanda real)
+* Tela de **Decisões**
+
+  * Estruturar escolhas
+  * Prós e contras
+  * Impacto por categoria
+* Anotações estruturadas
+* Relatórios semanais
+* Recomendações inteligentes (IA)
+
+---
+
+## 10. Direção Estratégica
+
+Foco inicial:
+→ Fazer o usuário usar **todos os dias**
+
+Evitar no MVP:
+
+* Calendário complexo
+* Features extras
+* Customizações desnecessárias
+
+---
+
+## 11. Navegação por Data (Essencial para uso real)
+
+Objetivo:
+→ Permitir visualizar tarefas de qualquer dia sem adicionar complexidade de calendário
+
+Estratégia:
+→ Sistema baseado em **data selecionada (selectedDate)**
+
+Comportamento:
+
+* O app mantém uma data ativa
+* Todas as listas (Home e Tarefas) são filtradas por essa data
+
+Implementação lógica:
+
+* Estado global ou local:
+
+  * selectedDate (YYYY-MM-DD)
+
+* Filtro:
+
+  * Mostrar apenas tarefas onde task.date === selectedDate
+
+UX (simples e eficiente):
+
+* Navegação por botões:
+
+  * ← Dia anterior
+  * Hoje
+  * Próximo dia →
+
+* Exibir data atual na tela
+
+Benefícios:
+
+* Resolve 90% dos casos de uso
+* Mantém o app rápido e simples
+* Evita complexidade de calendário
+* Permite evolução futura sem refatoração
+
+Regra importante:
+
+→ O usuário sempre interage com **um dia por vez**
+
+---
+
+## 12. Próximo Nível (evolução da data)
+
+Somente após validação:
+
+* Timeline semanal
+* Navegação por semana
+* Calendário visual (se necessário)
+
+---
+
+Próximo nível:
+→ Transformar dados em **decisões inteligentes**
+
+
+
+Tarefas:
+Tarefas Recorrentes,
+Paginas: Metas, Home, Perfil(configs)
+Vincular com backend
