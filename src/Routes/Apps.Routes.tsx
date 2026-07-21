@@ -10,6 +10,7 @@ import Home from '../Pages/Home';
 import Profile from '../Pages/Profile';
 import Metas from '../Pages/Metas';
 import Tarefas from '../Pages/Tarefas';
+import IA from '../Pages/IA';
 import Settings from '../Pages/Settings';
 
 const HomeIcon = ({ color, size }) => (
@@ -22,6 +23,10 @@ const RotinaIcon = ({ color, size }) => (
 
 const MetasIcon = ({ color, size }) => (
   <Feather name="flag" color={color} size={size} />
+);
+
+const IAIcon = ({ color, size }) => (
+  <Feather name="message-circle" color={color} size={size} />
 );
 
 const ProfileIcon = ({ color, size }) => (
@@ -103,6 +108,14 @@ export default function AppRoutes() {
         options={{
           headerShown: false,
           tabBarIcon: MetasIcon,
+        }}
+      />
+      <Tab.Screen
+        name="IA"
+        component={IA}
+        options={{
+          headerShown: false,
+          tabBarIcon: IAIcon,
         }}
       />
       <Tab.Screen

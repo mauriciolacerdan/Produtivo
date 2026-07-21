@@ -120,6 +120,7 @@ export function AuthProvider({ children }) {
       );
       await currentUser.reauthenticateWithCredential(credential); //Aqui o Firebase confirma: “Sim, esse usuário sabe a senha atual da conta”.
       await currentUser.updatePassword(SenhaDigitado); //Troca senha atual pela SenhaDigitado
+      Alert.alert('Senha alterada com sucesso!');
     } catch (error) {
       if (error.code === 'auth/invalid-credential') {
         Alert.alert('A senha atual está incorreta');
@@ -142,6 +143,7 @@ export function AuthProvider({ children }) {
       const novoUsuario = { ...user, nome: NomeDigitado };
       setUser(novoUsuario);
       await storageUser(novoUsuario);
+      Alert.alert('Nome alterado com sucesso!');
     } catch (error) {
       Alert.alert('Erro ao alterar nome');
       console.log(error);

@@ -290,5 +290,5 @@ Próximo nível:
 
 Tarefas:
 Tarefas Recorrentes,
-Paginas: Metas, Home, Perfil(configs)
+Paginas: Metas, Home, IA
 Vincular com backend
