@@ -3,7 +3,7 @@ import {
   Modal,
   TouchableWithoutFeedback,
   Alert,
-  ActivityIndicator,
+  ActivityIndicator,Pressable
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -34,6 +34,7 @@ import {
   CalendarContainer,
   TituloSecH,
   ButtonHora,
+  FundoModal,
 } from './styles';
 
 type Props = {
@@ -123,8 +124,9 @@ export default function TaskModal({ visible, onClose }: Props) {
 
   return (
     <Modal visible={visible} transparent animationType="slide">
-      <TouchableWithoutFeedback onPress={onClose}>
+      <FundoModal onPress={onClose}>
         <Container>
+          <Pressable onPress={e => e.stopPropagation()}>
           <Content>
             <Texto>Nova Tarefa</Texto>
 
@@ -219,6 +221,7 @@ export default function TaskModal({ visible, onClose }: Props) {
               )}
             </ButtonCreate>
           </Content>
+          </Pressable>
           {showCalendar && (
             <TouchableWithoutFeedback onPress={() => setShowCalendar(false)}>
               <CalendarContainer>
@@ -268,7 +271,7 @@ export default function TaskModal({ visible, onClose }: Props) {
             />
           )}
         </Container>
-      </TouchableWithoutFeedback>
+      </FundoModal>
     </Modal>
   );
 }

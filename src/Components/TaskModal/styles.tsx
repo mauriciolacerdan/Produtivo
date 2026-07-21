@@ -6,6 +6,10 @@ export const Container = styled.View`
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
+export const FundoModal = styled.Pressable`
+  flex: 1;
+`;
+
 export const Content = styled.View`
   background-color: #2a2a2a;
   padding: 24px;

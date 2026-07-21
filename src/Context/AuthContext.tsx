@@ -1,7 +1,11 @@
 import { createContext, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 
-import auth from '@react-native-firebase/auth';
+import auth, {
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword,
+} from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -88,6 +92,11 @@ export function AuthProvider({ children }) {
       })
       .catch(error => {
         console.log(error);
+        if (error.code === 'auth/invalid-credential') {
+          Alert.alert('E-mail ou senha incorretos');
+        } else {
+          Alert.alert('Erro ao fazer login');
+        }
         setLoading(false);
       });
   }
@@ -98,9 +107,59 @@ export function AuthProvider({ children }) {
     setUser(null);
   }
 
+  const AlterarSenha = async (SenhaDigitado: string, SenhaAtual: string) => {
+    try {
+      const currentUser = auth().currentUser;
+      if (!currentUser || !currentUser.email) {
+        return;
+      }
+      const credential = EmailAuthProvider.credential(
+        //credencial temporária usando o e-mail do usuário logado e a senha atual digitada por ele.
+        currentUser.email,
+        SenhaAtual,
+      );
+      await currentUser.reauthenticateWithCredential(credential); //Aqui o Firebase confirma: “Sim, esse usuário sabe a senha atual da conta”.
+      await currentUser.updatePassword(SenhaDigitado); //Troca senha atual pela SenhaDigitado
+    } catch (error) {
+      if (error.code === 'auth/invalid-credential') {
+        Alert.alert('A senha atual está incorreta');
+      } else {
+        Alert.alert('Erro ao alterar a senha');
+      }
+      console.log(error);
+    }
+  };
+
+  const AlterarNome = async (NomeDigitado: string) => {
+    try {
+      const currentUser = auth().currentUser;
+      if (!currentUser || !user) {
+        return;
+      }
+      await firestore().collection('users').doc(currentUser.uid).update({
+        nome: NomeDigitado,
+      });
+      const novoUsuario = { ...user, nome: NomeDigitado };
+      setUser(novoUsuario);
+      await storageUser(novoUsuario);
+    } catch (error) {
+      Alert.alert('Erro ao alterar nome');
+      console.log(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ signed: !!user, user, loading, signUp, signIn, signOut }}
+      value={{
+        signed: !!user,
+        user,
+        loading,
+        signUp,
+        signIn,
+        signOut,
+        AlterarNome,
+        AlterarSenha,
+      }}
     >
       {children}
     </AuthContext.Provider>

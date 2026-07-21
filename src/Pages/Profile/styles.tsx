@@ -33,26 +33,31 @@ export const Email = styled.Text`
 `;
 
 export const Button = styled.TouchableOpacity`
-  align-items: center;
-  justify-content: center;
+  width: 90%;
   background-color: #2a2a2a;
   border-radius: 14px;
-  border-width: 0px;
-  padding: 13px 80px;
-  margin-bottom: 10px;
-  width: 85%;
+  margin-bottom: 14px;
 `;
 
-export const SairText = styled.Text`
-  color: #f52c2c;
-  font-size: 18px;
-  font-weight: 500;
-  margin-left: 8px;
+export const ButtonContent = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 16px;
 `;
 
-export const ConfigText = styled.Text`
+export const LeftContent = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const ButtonText = styled.Text`
   color: #ffffff;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 500;
-  margin-left: 8px;
+  margin-left: 14px;
+`;
+
+export const DangerText = styled(ButtonText)`
+  color: #ff4d4d;
 `;
