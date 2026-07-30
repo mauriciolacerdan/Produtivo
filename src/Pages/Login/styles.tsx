@@ -2,60 +2,80 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  align-items: center;
+  background-color: #121212;
   justify-content: center;
-  background-color: #1c1c1c;
+  align-items: center;
+  padding: 25px;
 `;
 
-export const Titulo = styled.Text`
-  font-style: italic;
-  color: #ffffff;
-  font-size: 50px;
+export const Header = styled.View`
+  align-items: center;
+  margin-bottom: 40px;
+`;
+
+export const Logo = styled.Text`
+  font-size: 48px;
   font-weight: bold;
-  margin-bottom: 50px;
+  font-style: italic;
+  color: #fff;
+  letter-spacing: 1px;
 `;
 
-export const Texte = styled.Text`
-  font-size: 18px;
-  align-items: flex-start;
-  margin-top: 20px;
-  color: #f2f2f2;
+export const Subtitle = styled.Text`
+  margin-top: 10px;
+  font-size: 15px;
+  color: #999;
+  text-align: center;
+`;
+
+export const Card = styled.View`
+  width: 100%;
+  background-color: #1c1c1c;
+  border-radius: 20px;
+  padding: 25px;
+`;
+
+export const Label = styled.Text`
+  color: #ddd;
+  font-size: 15px;
+  margin-bottom: 8px;
+  margin-top: 15px;
 `;
 
 export const Input = styled.TextInput`
-  width: 80%;
-  border-color: #2a2a2a;
+  height: 50px;
+  width: 100%;
+  border-radius: 12px;
+  background-color: #242424;
   border-width: 1px;
-  border-radius: 8px;
-  margin-top: 5px;
-  font-size: 17px;
-  padding-left: 16px;
-  padding-right: 16px;
-  background-color: #1c1c1c;
-  color: #f2f2f2;
+  border-color: #333;
+  padding-left: 15px;
+  font-size: 16px;
+  color: #fff;
 `;
 
 export const Button = styled.TouchableOpacity`
-  width: 80%;
-  background-color: #2a2a2a;
-  border-radius: 8px;
-  margin-top: 30px;
-  padding: 10px;
+  height: 52px;
+  width: 100%;
+  background-color: #242424;
+  border-radius: 12px;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
 `;
 
 export const ButtonText = styled.Text`
-  color: #f2f2f2;
-  font-size: 20px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
 `;
 
-export const SignUpButton = styled.TouchableOpacity`
-  margin-top: 10px;
-  color: #f2f2f2;
+export const SecondaryButton = styled.TouchableOpacity`
+  align-items: center;
+  margin-top: 20px;
 `;
 
-export const SignUpText = styled.Text`
+export const SecondaryText = styled.Text`
+  color: #999;
   font-size: 15px;
-   color: #f2f2f2;
 `;

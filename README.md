@@ -289,6 +289,9 @@ Próximo nível:
 
 
 Tarefas:
+
 Tarefas Recorrentes,
 Paginas: Metas, Home, IA
 Vincular com backend
+Fazer Icon e logo
+Postar Google play

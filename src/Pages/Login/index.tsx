@@ -1,27 +1,33 @@
 import React, { useState, useContext } from 'react';
 import { Alert, ActivityIndicator } from 'react-native';
 import { AuthContext } from '../../Context/AuthContext';
+
 import {
   Container,
-  Titulo,
-  Texte,
+  Header,
+  Logo,
+  Subtitle,
+  Card,
+  Label,
   Input,
   Button,
   ButtonText,
-  SignUpButton,
-  SignUpText,
+  SecondaryButton,
+  SecondaryText,
 } from './styles';
 
 export default function Login() {
   const { loading, signIn, signUp } = useContext(AuthContext);
+
+  const [login, setLogin] = useState(true);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   async function handleSignIn() {
-    if (email === '' || password === '') {
-      Alert.alert('PREENCHA TODOS OS CAMPOS');
+    if (!email || !password) {
+      Alert.alert('Preencha todos os campos');
       return;
     }
 
@@ -29,98 +35,79 @@ export default function Login() {
   }
 
   async function handleSignUp() {
-    if (email === '' || password === '' || name === '') {
-      Alert.alert('PREENCHA TODOS OS CAMPOS PARA CADASTRAR');
+    if (!name || !email || !password) {
+      Alert.alert('Preencha todos os campos');
       return;
     }
 
     await signUp(name, email, password);
   }
 
-  const [login, setLogin] = useState(true);
-  function handleLogin() {
+  function changeMode() {
     setLogin(!login);
+
     setName('');
     setEmail('');
     setPassword('');
-  } //Faz o login virar true e se virar true vai retornar os itens abaixo
-  if (login) {
-    return (
-      <Container>
-        <Titulo>Produtivo</Titulo>
-
-        <Texte>Email</Texte>
-        <Input
-          placeholder="seu@email.com"
-          placeholderTextColor="#ffffff3b" 
-          value={email}
-          onChangeText={text => setEmail(text)}
-        />
-
-        <Texte>Senha</Texte>
-        <Input
-          placeholder="******"
-          placeholderTextColor="#ffffff3b" 
-          secureTextEntry={true}
-          value={password}
-          onChangeText={text => setPassword(text)}
-        />
-
-        <Button onPress={handleSignIn}>
-          {loading ? (
-            <ActivityIndicator size={20} color="#fff" />
-          ) : (
-            <ButtonText>Acessar</ButtonText>
-          )}
-        </Button>
-
-        <SignUpButton onPress={handleLogin}>
-          <SignUpText>Criar uma conta</SignUpText>
-        </SignUpButton>
-      </Container>
-    );
   }
 
   return (
     <Container>
-      <Titulo>Produtivo</Titulo>
+      <Header>
+        <Logo>Produtivo</Logo>
 
-      <Texte>Nome</Texte>
-      <Input
-        placeholder="Seunome"
-        placeholderTextColor="#ffffff3b" 
-        value={name}
-        onChangeText={text => setName(text)}
-      />
+        <Subtitle>Organize seu tempo. Evolua todos os dias.</Subtitle>
+      </Header>
 
-      <Texte>Email</Texte>
-      <Input
-        placeholder="seu@email.com"
-        placeholderTextColor="#ffffff3b" 
-        value={email}
-        onChangeText={text => setEmail(text)}
-      />
+      <Card>
+        {!login && (
+          <>
+            <Label>Nome</Label>
 
-      <Texte>Senha</Texte>
-      <Input
-        placeholder="********"
-        placeholderTextColor="#ffffff3b" 
-        secureTextEntry={true}
-        value={password}
-        onChangeText={text => setPassword(text)}
-      />
-
-      <Button onPress={handleSignUp}>
-        {loading ? (
-          <ActivityIndicator size={20} color="#fff" />
-        ) : (
-          <ButtonText>Cadastrar</ButtonText>
+            <Input
+              placeholder="Seu nome"
+              placeholderTextColor="#777"
+              value={name}
+              onChangeText={setName}
+            />
+          </>
         )}
-      </Button>
 
-      <SignUpButton onPress={handleLogin}>
-        <SignUpText>Já possuo uma conta</SignUpText>
-      </SignUpButton>
+        <Label>Email</Label>
+
+        <Input
+          placeholder="seu@email.com"
+          placeholderTextColor="#777"
+          value={email}
+          onChangeText={setEmail}
+        />
+
+        <Label>Senha</Label>
+
+        <Input
+          placeholder="******"
+          placeholderTextColor="#777"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+
+        <Button onPress={login ? handleSignIn : handleSignUp}>
+          {loading ? (
+            <ActivityIndicator size={20} color="#fff" />
+          ) : (
+            <ButtonText>{login ? 'Entrar' : 'Criar conta'}</ButtonText>
+          )}
+        </Button>
+
+        <SecondaryButton onPress={changeMode}>
+          <SecondaryText>
+            {login
+              ? 'Ainda não possui conta? Criar agora'
+              : 'Já possui uma conta? Entrar'}
+          </SecondaryText>
+        </SecondaryButton>
+      </Card>
     </Container>
   );
 }
