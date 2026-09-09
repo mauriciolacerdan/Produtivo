@@ -1,0 +1,21 @@
+---
+description: Shared vs local components
+globs: src/Components/**/*.tsx
+alwaysApply: false
+---
+
+# Components
+
+- Shared or reused in 2+ screens → `src/Components/{PascalName}/index.tsx` + `styles.tsx`.
+- Used by one screen → that page's `_components/` folder. Do not "promote" to global without a second consumer.
+- One responsibility per component. Pass callbacks as `onPress` / `onClose`; name handlers `handle*`.
+- Presentational pieces should not import Firestore or Auth. The TaskModal still does; new components should not copy that.
+
+```tsx
+// ✅
+type Props = { visible: boolean; onClose: () => void };
+
+// ❌ Do not create src/components (lowercase) or a second UI kit
+```
+
+Icons: `react-native-vector-icons/Feather`. Ask before adding a new icon library.

@@ -1,0 +1,17 @@
+---
+description: Core Produtivo standards — stack, folders, product constraints
+alwaysApply: true
+---
+
+# Produtivo core
+
+React Native CLI 0.86 + TypeScript + styled-components + React Navigation 7 + Firebase Auth/Firestore. Do not introduce Expo, Expo Router, Next.js, Tailwind, or Shadcn.
+
+Read `AGENTS.md` and `Plano-de-Contexto.md` before structural changes.
+
+- Screens live in `src/Pages/{Name}/index.tsx` + `styles.tsx`.
+- Shared UI in `src/Components/{Name}/`. Agent docs are `AGENTS.md`; the in-app tab is `src/Pages/IA`.
+- Keep the five life categories (`trabalho`, `estudos`, `saude`, `lazer`, `descanso`). Every task must have one.
+- Filter lists by `selectedDate` (`YYYY-MM-DD`). One day at a time. Calendar is a date shortcut, not the product.
+- Do not commit, push, or add dependencies unless asked.
+- If folder, Firestore path, or scope is unclear, ask first.

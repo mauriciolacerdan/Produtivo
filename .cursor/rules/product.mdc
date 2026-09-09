@@ -1,0 +1,17 @@
+---
+description: Produtivo domain rules — categories, date, score, MVP scope
+globs: src/Pages/**/*.tsx,src/Components/**/*.tsx
+alwaysApply: false
+---
+
+# Product domain
+
+Categories come from `src/Components/Categories`. Do not add/rename ids without a product decision.
+
+- Home and Tarefas operate on **one** `selectedDate`. Filter `task.date === selectedDateString`.
+- Missing date on create → today.
+- Recurring: keep `recurring` boolean; do not uncomment the switch unless asked.
+- Score / category %: only **completed** tasks in the selected period. Do not count open tasks.
+- Tabs: Home, Tarefas, Metas, IA, Perfil. Settings stays under the Profile stack.
+- Leave Metas and in-app IA as placeholders unless the task is to build them.
+- Portuguese copy in the UI (`Hoje`, `Amanhã`, alerts).

@@ -1,0 +1,26 @@
+---
+description: Screen structure for Produtivo Pages
+globs: src/Pages/**/*.tsx
+alwaysApply: false
+---
+
+# Screens
+
+Each screen is `src/Pages/{PascalName}/index.tsx` + `styles.tsx`. Default-export the page. Register it in `src/Routes`.
+
+New or refactored screens:
+
+- `index.tsx` — wire hooks/callbacks and render UI (keep Firestore out of new UI).
+- Optional `use-{feature}.ts` in `src/hooks/` or beside the page if only that page uses it.
+- Optional `src/services/{feature}-service.ts` for Auth/Firestore.
+- Page-only widgets: `src/Pages/{Name}/_components/` in kebab-case (`date-nav.tsx`).
+- Shared widgets: `src/Components`.
+
+```tsx
+// ✅ Page default export
+export default function Tarefas() { /* ... */ }
+
+// ❌ Do not add Expo Router `app/` files
+```
+
+Reuse existing date navigation (prev / today / next) instead of duplicating ad-hoc calendars. Match dark theme tokens already used in sibling `styles.tsx`.

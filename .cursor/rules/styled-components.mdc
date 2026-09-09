@@ -1,0 +1,23 @@
+---
+description: styled-components theme and styles files
+globs: src/**/styles.tsx
+alwaysApply: false
+---
+
+# Styling
+
+Use `styled-components/native` in the colocated `styles.tsx`. Do not switch those files to StyleSheet or Tailwind.
+
+Theme (keep consistent):
+
+- Background `#1c1c1c` · surface `#2a2a2a` / `#2e2e2e` · text `#ffffff` · muted `#a1a1a1` · danger `#ff4d4d`
+
+Transient props use `$` (`$active`, `$selected`, `$color`) so they are not forwarded to the DOM/native node.
+
+```tsx
+export const ButtonDate = styled.TouchableOpacity<{ $active: boolean }>`
+  background-color: ${p => (p.$active ? '#ffffff' : '#2a2a2a')};
+`;
+```
+
+Layout: flex, padding already used in pages (`20px` sides). Respect safe areas. Interactive hits ≥ 44px. Loading/empty/error must be visible, not blank screens.

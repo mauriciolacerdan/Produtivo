@@ -1,0 +1,20 @@
+---
+description: Improve Produtivo Cursor rules when new patterns appear
+globs: **/*
+alwaysApply: false
+---
+
+# Rule improvement
+
+Update `.cursor/rules` when:
+
+- The same pattern appears in 3+ files
+- Reviews keep repeating the same feedback
+- A bug class could be prevented by a short rule
+- Stack or folder conventions change
+
+Modify a rule when the codebase has a better example or the old pattern is wrong.
+
+Quality: specific, actionable, examples from this repo, no Next.js/Expo leftovers.
+
+New rule files follow `.cursor/rules/cursor-rules.mdc`. Remove rules that no longer match the app.

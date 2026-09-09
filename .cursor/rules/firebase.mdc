@@ -1,0 +1,27 @@
+---
+description: Firebase Auth and Firestore paths for Produtivo
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Firebase
+
+Use `@react-native-firebase/auth` and `@react-native-firebase/firestore` only. Auth UX goes through `AuthContext` when the method already exists.
+
+Paths:
+
+- User profile: `users/{uid}` → `{ nome, createdAt }`
+- Tasks: `users/{uid}/tasks/{id}` → `{ title, date, hour, category, recurring, completed, userId, createdAt }`
+
+`date` is `YYYY-MM-DD`. `hour` is `HH:mm`. `category` is one of `trabalho | estudos | saude | lazer | descanso`.
+
+```ts
+const user = auth().currentUser;
+if (!user) return;
+const unsub = firestore()
+  .collection('users').doc(user.uid).collection('tasks')
+  .onSnapshot(snap => { /* map docs */ });
+return () => unsub();
+```
+
+Always unsubscribe listeners. Persist session with AsyncStorage key `@devapp`. Do not invent collections (goals, etc.) without confirming with backend. Never put LLM API keys in the app.

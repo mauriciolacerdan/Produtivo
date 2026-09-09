@@ -1,0 +1,25 @@
+---
+description: How to add or edit Cursor rules in this project
+globs:
+alwaysApply: false
+---
+
+# Cursor rules location
+
+1. Active copies Cursor loads: `.cursor/rules/*.mdc`
+2. Keep both in sync.
+
+Naming: kebab-case + `.mdc`. One concern per file. Prefer under ~50 lines. English.
+
+```yaml
+---
+description: Short purpose
+globs: src/Pages/**/*.tsx
+alwaysApply: false
+---
+```
+
+- `alwaysApply: true` only for project-wide constraints.
+- Use `globs` for file-type rules.
+- Actionable bullets + small ✅/❌ examples.
+- Do not put rules in the repo root or random folders.
