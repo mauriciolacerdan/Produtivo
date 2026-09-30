@@ -295,3 +295,5 @@ Paginas: Metas, Home, IA
 Vincular com backend
 Fazer Icon e logo
 Postar Google play
+
+Ajustar retornos de erros de login, criação de conta e outros processos, e alert para o usuario informando o erro que ocorreu como: Email já em uso!
