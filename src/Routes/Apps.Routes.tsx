@@ -1,10 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-
-import Feather from 'react-native-vector-icons/Feather';
+import { Feather } from '@react-native-vector-icons/feather/static';
 
 import Home from '../Pages/Home';
 import Profile from '../Pages/Profile';
@@ -13,48 +10,58 @@ import Tarefas from '../Pages/Tarefas';
 import IA from '../Pages/IA';
 import Settings from '../Pages/Settings';
 
-const HomeIcon = ({ color, size }) => (
-  <Feather name="home" color={color} size={size} />
-);
+import type {
+  TabIconProps,
+  HomeStackParamList,
+  ProfileStackParamList,
+  TabParamList,
+} from '../types/navigation';
 
-const RotinaIcon = ({ color, size }) => (
-  <Feather name="check-square" color={color} size={size} />
-);
+function HomeIcon({ color, size }: TabIconProps) {
+  return <Feather name="home" color={color} size={size} />;
+}
 
-const MetasIcon = ({ color, size }) => (
-  <Feather name="flag" color={color} size={size} />
-);
+function RotinaIcon({ color, size }: TabIconProps) {
+  return <Feather name="check-square" color={color} size={size} />;
+}
 
-const IAIcon = ({ color, size }) => (
-  <Feather name="message-circle" color={color} size={size} />
-);
+function MetasIcon({ color, size }: TabIconProps) {
+  return <Feather name="flag" color={color} size={size} />;
+}
 
-const ProfileIcon = ({ color, size }) => (
-  <Feather name="user" color={color} size={size} />
-);
+function IAIcon({ color, size }: TabIconProps) {
+  return <Feather name="message-circle" color={color} size={size} />;
+}
 
+function ProfileIcon({ color, size }: TabIconProps) {
+  return <Feather name="user" color={color} size={size} />;
+}
+
+const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 function StackRoutes() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <HomeStack.Navigator>
+      <HomeStack.Screen
         name="Home"
         component={Home}
         options={{ headerShown: false }}
       />
-    </Stack.Navigator>
+    </HomeStack.Navigator>
   );
 }
 
+const ProfileStackNavigator =
+  createNativeStackNavigator<ProfileStackParamList>();
 function ProfileStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <ProfileStackNavigator.Navigator>
+      <ProfileStackNavigator.Screen
         name="ProfileMain"
         component={Profile}
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen
+      <ProfileStackNavigator.Screen
         name="Settings"
         component={Settings}
         options={{
@@ -72,10 +79,11 @@ function ProfileStack() {
           },
         }}
       />
-    </Stack.Navigator>
+    </ProfileStackNavigator.Navigator>
   );
 }
 
+const Tab = createBottomTabNavigator<TabParamList>();
 export default function AppRoutes() {
   return (
     <Tab.Navigator

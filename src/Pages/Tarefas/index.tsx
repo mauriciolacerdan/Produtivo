@@ -23,7 +23,7 @@ import {
 } from './styles';
 import { TouchableWithoutFeedback } from 'react-native';
 import ButtonModal from '../../Components/TaskModal/ButtonModal/index';
-import Feather from 'react-native-vector-icons/Feather';
+import { Feather } from '@react-native-vector-icons/feather/static';
 import { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import auth from '@react-native-firebase/auth'; //importando firebase
@@ -45,6 +45,7 @@ type Task = {
 
 export default function Tarefas() {
   const [tasks, setTasks] = useState<Task[]>([]);
+
   useEffect(() => {
     const user = auth().currentUser; // pega o usuário logado no Firebase Auth
     if (!user) return; // se não tiver usuário logado, encerra a execução

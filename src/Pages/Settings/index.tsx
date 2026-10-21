@@ -9,7 +9,7 @@ import {
 import { useState } from 'react';
 import NameModal from '../../Components/EditNameModal';
 import SenhaModal from '../../Components/ChangePasswordModal';
-import Icon from 'react-native-vector-icons/Feather';
+import { Feather } from '@react-native-vector-icons/feather/static';
 
 export default function Settings() {
   const [modalNomeVisible, setModalNomeVisible] = useState(false);
@@ -19,33 +19,33 @@ export default function Settings() {
       <Button onPress={() => setModalNomeVisible(true)}>
         <ButtonContent>
           <LeftContent>
-            <Icon name="user" size={22} color="#FFF" />
+            <Feather name="user" size={22} color="#FFF" />
             <ButtonText>Alterar nome</ButtonText>
           </LeftContent>
 
-          <Icon name="chevron-right" size={22} color="#888" />
+          <Feather name="chevron-right" size={22} color="#888" />
         </ButtonContent>
       </Button>
 
       <Button onPress={() => setModalSenhaVisible(true)}>
         <ButtonContent>
           <LeftContent>
-            <Icon name="lock" size={22} color="#FFF" />
+            <Feather name="lock" size={22} color="#FFF" />
             <ButtonText>Alterar senha</ButtonText>
           </LeftContent>
 
-          <Icon name="chevron-right" size={22} color="#888" />
+          <Feather name="chevron-right" size={22} color="#888" />
         </ButtonContent>
       </Button>
 
       <Button>
         <ButtonContent>
           <LeftContent>
-            <Icon name="trash-2" size={22} color="#ff4d4d" />
+            <Feather name="trash-2" size={22} color="#ff4d4d" />
             <DangerText>Excluir conta</DangerText>
           </LeftContent>
 
-          <Icon name="chevron-right" size={22} color="#888" />
+          <Feather name="chevron-right" size={22} color="#888" />
         </ButtonContent>
       </Button>
 

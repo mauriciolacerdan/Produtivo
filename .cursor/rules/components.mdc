@@ -18,4 +18,4 @@ type Props = { visible: boolean; onClose: () => void };
 // ❌ Do not create src/components (lowercase) or a second UI kit
 ```
 
-Icons: `react-native-vector-icons/Feather`. Ask before adding a new icon library.
+Icons: `@react-native-vector-icons/feather/static`. Ask before adding a new icon library.

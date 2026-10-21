@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Feather';
+import { Feather } from '@react-native-vector-icons/feather/static';
 
 import {
   Container,
@@ -32,22 +32,22 @@ export default function Profile() {
       <Button onPress={() => navigation.navigate('Settings')}>
         <ButtonContent>
           <LeftContent>
-            <Icon name="settings" size={22} color="#FFF" />
+            <Feather name="settings" size={22} color="#FFF" />
             <ButtonText>Configurações</ButtonText>
           </LeftContent>
 
-          <Icon name="chevron-right" size={22} color="#888" />
+          <Feather name="chevron-right" size={22} color="#888" />
         </ButtonContent>
       </Button>
 
       <Button onPress={signOut} activeOpacity={0.7}>
         <ButtonContent>
           <LeftContent>
-            <Icon name="log-out" size={22} color="#ff4d4d" />
+            <Feather name="log-out" size={22} color="#ff4d4d" />
             <DangerText>Sair da conta</DangerText>
           </LeftContent>
 
-          <Icon name="chevron-right" size={22} color="#888" />
+          <Feather name="chevron-right" size={22} color="#888" />
         </ButtonContent>
       </Button>
     </Container>

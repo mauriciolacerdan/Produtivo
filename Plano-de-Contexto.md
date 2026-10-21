@@ -41,7 +41,7 @@ Fora do MVP (não implementar sem pedido explícito): timeline semanal, calendá
 
 - Mobile: React Native CLI **0.86**, React **19.2**, TypeScript.
 - Navegação: React Navigation 7 (native stack + bottom tabs). Não usar Expo Router.
-- UI: styled-components/native, ícones Feather (`react-native-vector-icons`).
+- UI: styled-components/native, ícones Feather (`@react-native-vector-icons/feather`).
 - Backend: Firebase Auth + Firestore (`@react-native-firebase/*` v25).
 - Persistência local da sessão: AsyncStorage (`@devapp`).
 - Plataformas: Android e iOS.
