@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Alert, ActivityIndicator } from 'react-native';
-import { AuthContext } from '../../Context/AuthContext';
+import { useAuth } from '../../Context/AuthContext';
 
 import {
   Container,
@@ -17,7 +17,7 @@ import {
 } from './styles';
 
 export default function Login() {
-  const { loading, signIn, signUp } = useContext(AuthContext);
+  const { loading, signIn, signUp } = useAuth();
 
   const [login, setLogin] = useState(true);
 
@@ -30,7 +30,6 @@ export default function Login() {
       Alert.alert('Preencha todos os campos');
       return;
     }
-
     await signIn(email, password);
   }
 
@@ -39,13 +38,11 @@ export default function Login() {
       Alert.alert('Preencha todos os campos');
       return;
     }
-
     await signUp(name, email, password);
   }
 
   function changeMode() {
     setLogin(!login);
-
     setName('');
     setEmail('');
     setPassword('');

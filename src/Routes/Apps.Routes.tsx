@@ -15,7 +15,7 @@ import type {
   HomeStackParamList,
   ProfileStackParamList,
   TabParamList,
-} from '../types/navigation';
+} from '../types/models';
 
 function HomeIcon({ color, size }: TabIconProps) {
   return <Feather name="home" color={color} size={size} />;

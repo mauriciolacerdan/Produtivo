@@ -25,45 +25,31 @@ import { TouchableWithoutFeedback } from 'react-native';
 import ButtonModal from '../../Components/TaskModal/ButtonModal/index';
 import { Feather } from '@react-native-vector-icons/feather/static';
 import { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
-import auth from '@react-native-firebase/auth'; //importando firebase
-import firestore from '@react-native-firebase/firestore'; //importando firebase
+import { Alert, FlatList } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { categories } from '../../Components/Categories';
-
-type Task = {
-  // Define o formato de uma tarefa, garantindo que o TypeScript saiba quais campos existem
-  id: string;
-  title: string;
-  date: string;
-  hour: string;
-  category: string;
-  recurring: boolean;
-  completed: boolean;
-  userId: string;
-};
+import { useAuth } from '../../Context/AuthContext';
+import {
+  deleteTask as removeTask,
+  subscribeToTasks,
+  updateTask,
+} from '../../services/taskService';
+import type { CategoryId, Task } from '../../types/models';
+import { formatLocalDate, parseLocalDate } from '../../utils/date';
 
 export default function Tarefas() {
+  const { user } = useAuth();
   const [tasks, setTasks] = useState<Task[]>([]);
-
+  
   useEffect(() => {
-    const user = auth().currentUser; // pega o usuário logado no Firebase Auth
-    if (!user) return; // se não tiver usuário logado, encerra a execução
-    const unsubscribe = firestore() // cria um "listener" no Firestore (tempo real)
-      .collection('users') // coleção principal
-      .doc(user.uid) // entra no usuário logado
-      .collection('tasks') // pega as tasks desse usuário
-      .onSnapshot(snapshot => {
-        // executa sempre que algo mudar (criar, editar, deletar)
-        const list = snapshot.docs.map(doc => ({
-          id: doc.id, // pega o id do documento
-          ...doc.data(), // pega os dados da task
-        })) as Task[];
-        setTasks(list); // atualiza o state com todas as tasks atuais
-      });
-    // limpeza do listener que evita vazamento de memória e múltiplas conexões
-    return () => unsubscribe();
-  }, []);
+    if (!user) {
+      return;
+    }
+    return subscribeToTasks(setTasks, error => {
+      console.error(error);
+      Alert.alert('Erro ao carregar tarefas');
+    });
+  }, [user]);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const dataFormatada = selectedDate.toLocaleDateString('pt-BR');
@@ -81,39 +67,27 @@ export default function Tarefas() {
   };
   const textoData = getTextoData();
   const [showCalendar, setShowCalendar] = useState(false);
-  const selectedDateString = selectedDate.toISOString().split('T')[0];
+  const selectedDateString = formatLocalDate(selectedDate);
 
   const checkTask = async (item: Task) => {
-    const user = auth().currentUser;
-    if (!user) {
-      return;
+    try {
+      await updateTask(item.id, { completed: !item.completed });
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Erro ao atualizar tarefa');
     }
-    await firestore()
-      .collection('users')
-      .doc(user.uid)
-      .collection('tasks')
-      .doc(item.id) //entrando na tarefa do id
-      .update({
-        completed: !item.completed, //alternando
-      });
   };
 
   const deleteTask = async (item: Task) => {
-    const user = auth().currentUser;
-    if (!user) return;
     try {
-      await firestore()
-        .collection('users')
-        .doc(user.uid)
-        .collection('tasks')
-        .doc(item.id)
-        .delete();
+      await removeTask(item.id);
     } catch (error) {
-      console.log('Erro ao deletar tarefa:', error);
+      console.error(error);
+      Alert.alert('Erro ao deletar tarefa');
     }
   };
 
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<CategoryId | ''>('');
 
   return (
     <Container>
@@ -166,7 +140,7 @@ export default function Tarefas() {
             <Calendar
               hideExtraDays={true}
               onDayPress={day => {
-                setSelectedDate(new Date(day.dateString));
+                setSelectedDate(parseLocalDate(day.dateString));
                 setShowCalendar(false);
               }}
               markedDates={{

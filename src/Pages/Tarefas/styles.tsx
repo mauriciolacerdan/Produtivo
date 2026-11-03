@@ -1,4 +1,10 @@
 import styled from 'styled-components/native';
+import type {
+  TaskCategoryStyleProps,
+  TaskCheckButtonStyleProps,
+  TaskColorStyleProps,
+  TaskTextStyleProps,
+} from '../../types/models';
 
 export const Container = styled.View`
   flex: 1;
@@ -101,28 +107,20 @@ export const ContainerTask = styled.View`
   border-radius: 15px;
 `;
 
-interface TitleProps {
-  completed: boolean;
-}
-export const Title = styled.Text<TitleProps>`
+export const Title = styled.Text<TaskTextStyleProps>`
   color: ${({ completed }) => (completed ? '#a1a1a1' : '#ffffff')};
   font-size: 17px;
   font-weight: 400;
   text-decoration-line: ${({ completed }) =>
     completed ? 'line-through' : 'none'};
 `;
-export const Hour = styled.Text<TitleProps>`
+export const Hour = styled.Text<TaskTextStyleProps>`
   color: ${({ completed }) => (completed ? '#a1a1a1' : '#EBEBEB')};
   font-size: 14px;
   text-decoration-line: ${({ completed }) =>
     completed ? 'line-through' : 'underline'};
 `;
-interface CheckButtonProps {
-  //quer dizer: Esse componente precisa receber uma propriedade chamada checked e ela obrigatoriamente é um boolean.
-  checked: boolean;
-}
-export const CheckButton = styled.TouchableOpacity<CheckButtonProps>`
-  /* recebe as propriedades de CheckButtonProps, entao ele sabe que o checked existe */
+export const CheckButton = styled.TouchableOpacity<TaskCheckButtonStyleProps>`
   width: 24px;
   height: 24px;
   margin-inline: 7px;
@@ -132,7 +130,6 @@ export const CheckButton = styled.TouchableOpacity<CheckButtonProps>`
   align-items: center;
   border-color: ${({ checked }) => (checked ? '#FFF' : '#8C8C8C')};
   background-color: ${({ checked }) => (checked ? '#FFF' : 'transparent')};
-  /* Recebe a prop "checked" e altera as cores do botão dinamicamente.  E o $ significa: Execute um código JavaScript aqui.   ({ checked }) = pega apenas a prop "checked" recebida pelo componente. */
 `;
 export const ContainerActions = styled.View`
   margin-left: auto;
@@ -147,10 +144,7 @@ export const DeleteButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `;
-interface ColorProps {
-  $color: string;
-}
-export const CategoryColor = styled.View<ColorProps>`
+export const CategoryColor = styled.View<TaskColorStyleProps>`
   width: 10px;
   height: 10px;
   border-radius: 5px;
@@ -158,10 +152,7 @@ export const CategoryColor = styled.View<ColorProps>`
   background-color: ${({ $color }) => $color};
 `;
 
-interface CategoriaProps {
-  $selected: boolean;
-}
-export const Categoria = styled.TouchableOpacity<CategoriaProps>`
+export const Categoria = styled.TouchableOpacity<TaskCategoryStyleProps>`
   align-items: center;
   justify-content: center;
   height: 35px;
@@ -172,7 +163,7 @@ export const Categoria = styled.TouchableOpacity<CategoriaProps>`
   border-radius: 20px;
   background-color: ${({ $selected }) => ($selected ? '#FFFFFF' : '#3A3A3A')};
 `;
-export const TextCateg = styled.Text<CategoriaProps>`
+export const TextCateg = styled.Text<TaskCategoryStyleProps>`
   font-size: 15px;
   color: ${({ $selected }) => ($selected ? '#000000' : '#C7C7C7')};
 `;

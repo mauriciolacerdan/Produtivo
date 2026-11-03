@@ -1,4 +1,8 @@
 import styled from 'styled-components/native';
+import type {
+  TaskColorStyleProps,
+  TaskDateButtonStyleProps,
+} from '../../types/models';
 
 export const Container = styled.View`
   flex: 1;
@@ -46,12 +50,7 @@ export const ContainerDate = styled.View`
   justify-content: space-between;
   gap: 7px;
 `;
-interface ButtonDateProps {
-  /* o componente ButtonDate recebe uma prop chamada $active e ela deve ser boolean */
-  $active: boolean;
-}
-export const ButtonDate = styled.TouchableOpacity<ButtonDateProps>`
-  /* esse componente recebe as props definidas em ButtonDateProps */
+export const ButtonDate = styled.TouchableOpacity<TaskDateButtonStyleProps>`
   flex: 1;
   align-items: center;
   padding: 13px;
@@ -63,7 +62,7 @@ export const ButtonDate = styled.TouchableOpacity<ButtonDateProps>`
   border-width: 1px;
   border-color: ${({ $active }) => ($active ? '#ffffff' : '#3a3a3a')};
 `;
-export const TituloSec = styled.Text<ButtonDateProps>`
+export const TituloSec = styled.Text<TaskDateButtonStyleProps>`
   color: ${({ $active }) => ($active ? '#000' : '#ffffff')};
   font-size: 14px;
   font-weight: bold;
@@ -80,8 +79,7 @@ export const ContainerCategoria = styled.View`
   gap: 7px;
   flex-wrap: wrap;
 `;
-export const ButtonCate = styled.TouchableOpacity<ButtonDateProps>`
-  /* esse componente recebe as props definidas em ButtonDateProps */
+export const ButtonCate = styled.TouchableOpacity<TaskDateButtonStyleProps>`
   min-width: 48%;
   align-items: center;
   flex-direction: row;
@@ -96,10 +94,7 @@ export const ButtonCate = styled.TouchableOpacity<ButtonDateProps>`
   border-width: 1px;
   border-color: ${({ $active }) => ($active ? '#ffffff' : '#3a3a3a')};
 `;
-interface ColorProps {
-  $color: string;
-}
-export const ColorCate = styled.View<ColorProps>`
+export const ColorCate = styled.View<TaskColorStyleProps>`
   width: 10px;
   height: 10px;
   border-radius: 5px;
@@ -161,7 +156,7 @@ export const TituloSecH = styled.Text`
   font-weight: bold;
 `;
 
-export const ButtonHora = styled.TouchableOpacity<ButtonDateProps>`
+export const ButtonHora = styled.TouchableOpacity<TaskDateButtonStyleProps>`
   height: 45px;
   width: 100%;
   justify-content: center;

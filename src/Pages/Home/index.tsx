@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import {
   Container,
   ContainerData,
@@ -7,12 +7,12 @@ import {
   ContainerDT,
   DataText,
   IrDataText,
-  Titulo
+  Titulo,
 } from './styles';
-import { AuthContext } from '../../Context/AuthContext';
+import { useAuth } from '../../Context/AuthContext';
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const dataFormatada = selectedDate.toLocaleDateString('pt-BR');
   const getTextoData = () => {
@@ -30,8 +30,8 @@ export default function Home() {
   const textoData = getTextoData();
   return (
     <Container>
-      <Titulo>Olá {user.nome}</Titulo>
-      
+      <Titulo>Olá {user?.nome ?? ''}</Titulo>
+
       <ContainerData>
         <SetaData
           onPress={() => {

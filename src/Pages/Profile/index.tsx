@@ -1,7 +1,8 @@
-import { useContext } from 'react';
-import { AuthContext } from '../../Context/AuthContext';
+import { useAuth } from '../../Context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Feather } from '@react-native-vector-icons/feather/static';
+import type { ProfileStackParamList } from '../../types/models';
 
 import {
   Container,
@@ -17,16 +18,19 @@ import {
 } from './styles';
 
 export default function Profile() {
-  const { signOut, user } = useContext(AuthContext);
-  const navigation = useNavigation<any>();
+  const { signOut, user } = useAuth();
+  const navigation =
+    useNavigation<
+      NativeStackNavigationProp<ProfileStackParamList, 'ProfileMain'>
+    >();
 
   return (
     <Container>
       <Perfil>
         <Avatar source={require('../../Assets/avatar.png')} />
 
-        <Name>{user.nome}</Name>
-        <Email>{user.email}</Email>
+        <Name>{user?.nome ?? ''}</Name>
+        <Email>{user?.email ?? ''}</Email>
       </Perfil>
 
       <Button onPress={() => navigation.navigate('Settings')}>

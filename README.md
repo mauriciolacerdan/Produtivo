@@ -297,3 +297,5 @@ Vincular com backend
 Fazer Icon e logo
 Postar prints no linkedin
 Postar Google play
+
+Vefificação do README, tratamento de erros e organização.

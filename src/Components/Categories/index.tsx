@@ -1,4 +1,6 @@
-export const categories = [
+import type { Category } from '../../types/models';
+
+export const categories: Category[] = [
   {
     id: 'trabalho',
     label: 'Trabalho',

@@ -12,16 +12,12 @@ import {
   FundoModal,
 } from './styles';
 import { Modal, Pressable, ActivityIndicator, Alert } from 'react-native';
-import { useState, useContext } from 'react';
-import { AuthContext } from '../../Context/AuthContext';
+import { useState } from 'react';
+import { useAuth } from '../../Context/AuthContext';
+import type { EditNameModalProps } from '../../types/models';
 
-type Props = {
-  visible: boolean;
-  onClose: () => void;
-};
-
-export default function NameModal({ visible, onClose }: Props) {
-  const { AlterarNome } = useContext(AuthContext);
+export default function NameModal({ visible, onClose }: EditNameModalProps) {
+  const { AlterarNome } = useAuth();
   const [NomeDigitado, setNomedigitado] = useState('');
   const [loadingTask, setLoadingTask] = useState(false);
 
@@ -32,7 +28,10 @@ export default function NameModal({ visible, onClose }: Props) {
         Alert.alert('Adicione um Nome');
         return;
       }
-      await AlterarNome(NomeDigitado);
+      const nameChanged = await AlterarNome(NomeDigitado);
+      if (!nameChanged) {
+        return;
+      }
       setNomedigitado('');
       onClose();
     } catch (error) {

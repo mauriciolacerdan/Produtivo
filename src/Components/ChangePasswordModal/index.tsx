@@ -12,16 +12,15 @@ import {
   FundoModal,
 } from '../EditNameModal/styles';
 import { Modal, Pressable, ActivityIndicator, Alert } from 'react-native';
-import { useState, useContext } from 'react';
-import { AuthContext } from '../../Context/AuthContext';
+import { useState } from 'react';
+import { useAuth } from '../../Context/AuthContext';
+import type { ChangePasswordModalProps } from '../../types/models';
 
-type Props = {
-  visible: boolean;
-  onClose: () => void;
-};
-
-export default function SenhaModal({ visible, onClose }: Props) {
-  const { AlterarSenha } = useContext(AuthContext);
+export default function SenhaModal({
+  visible,
+  onClose,
+}: ChangePasswordModalProps) {
+  const { AlterarSenha } = useAuth();
   const [SenhaDigitado, setSenhadigitado] = useState('');
   const [SenhaAtual, setSenhaAtual] = useState('');
   const [loadingTask, setLoadingTask] = useState(false);
@@ -37,8 +36,12 @@ export default function SenhaModal({ visible, onClose }: Props) {
         Alert.alert('A senha deve ter pelo menos 6 caracteres');
         return;
       }
-      await AlterarSenha(SenhaDigitado, SenhaAtual);
+      const passwordChanged = await AlterarSenha(SenhaDigitado, SenhaAtual);
+      if (!passwordChanged) {
+        return;
+      }
       setSenhadigitado('');
+      setSenhaAtual('');
       onClose();
     } catch (error) {
       Alert.alert('Erro ao alterar senha');
